@@ -81,19 +81,14 @@ def login():
 
 @app.route('/update_password', methods=['GET', 'POST'])
 def update_password():
-    # Get the token from the URL (from the email link)
     token = request.args.get('token')
     
     if not token:
-        flash('Invalid or missing reset token', 'error')
+        flash('Invalid or missing password reset token.', 'error')
         return redirect(url_for('login'))
     
     if request.method == 'POST':
         new_password = request.form.get('password')
-        
-        if not new_password:
-            flash('Please enter a new password', 'error')
-            return render_template('update_password.html', token=token)
         
         try:
             # Update the user's password using the token
@@ -104,9 +99,9 @@ def update_password():
             flash('Your password has been updated successfully!', 'success')
             return redirect(url_for('login'))
         except Exception as e:
-            flash(f'Failed to update password: {str(e)}', 'error')
+            flash(f'An error occurred: {str(e)}', 'error')
     
-    # Display the form for entering a new password
+    # Display the form to enter a new password
     return render_template('update_password.html', token=token)
     
     
