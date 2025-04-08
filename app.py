@@ -2,9 +2,17 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from supabase import create_client
 import datetime
 import os
+import os
+from dotenv import load_dotenv  # This is optional; only if you need to load local .env files for local development.
+
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Set a secure secret key for session management
+
+
+SUPABASE_URL = os.getenv('SUPABASE_URL')
+SUPABASE_KEY = os.getenv('SUPABASE_KEY')
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
