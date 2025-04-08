@@ -48,7 +48,12 @@ def register():
             flash(f'An error occurred: {str(e)}', 'error')
     
     return render_template('register.html')
-
+    
+@app.route('/reset-callback', methods=['GET'])
+def reset_callback():
+    # This page will receive the hash fragment from Supabase
+    # We'll use JavaScript to extract the token and show the password reset form
+    return render_template('reset_callback.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
