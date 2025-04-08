@@ -65,16 +65,21 @@ def update_password():
     
     if request.method == 'POST':
         new_password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        # Check if passwords match
+        if new_password != confirm_password:
+            flash('Passwords do not match. Please try again.', 'error')
+            return redirect(url_for('update_password', token=token))
         
         try:
-            # Create client with the reset token
-            # This approach varies by Supabase version, but generally:
+            # Verify the token and update the password
             session = supabase.auth.verify_otp({
                 'token': token,
                 'type': 'recovery'
             })
             
-            # Use the session to update the password
+            # If the session is valid, update the password
             supabase.auth.update_user(
                 {'password': new_password},
                 session.session.access_token
@@ -85,8 +90,9 @@ def update_password():
         except Exception as e:
             flash(f'An error occurred: {str(e)}', 'error')
     
-    # Display the form to enter a new password
+    # If GET request, render the password update form
     return render_template('update_password.html', token=token)
+
         
 @app.route('/login', methods=['GET', 'POST'])
 def login():
