@@ -6,9 +6,6 @@ import os
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Set a secure secret key for session management
 
-# Supabase credentials
-SUPABASE_URL = "https://dnsjntghonaudojutkqr.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuc2pudGdob25hdWRvanV0a3FyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAzOTI4NjUsImV4cCI6MjA1NTk2ODg2NX0.qb06VaYX773nky3dJXLt6DT8i8ru4jaAj7KTmULrYYE"
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # Auth middleware
