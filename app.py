@@ -117,30 +117,7 @@ def login():
     
     return render_template('login.html')
 
-@app.route('/update_password', methods=['GET', 'POST'])
-def update_password():
-    token = request.args.get('token')
-    
-    if not token:
-        flash('Invalid or missing password reset token.', 'error')
-        return redirect(url_for('login'))
-    
-    if request.method == 'POST':
-        new_password = request.form.get('password')
-        
-        try:
-            # Update the user's password using the token
-            response = supabase.auth.update_user({
-                "password": new_password
-            })
-            
-            flash('Your password has been updated successfully!', 'success')
-            return redirect(url_for('login'))
-        except Exception as e:
-            flash(f'An error occurred: {str(e)}', 'error')
-    
-    # Display the form to enter a new password
-    return render_template('update_password.html', token=token)
+
     
     
 @app.route('/reset_password', methods=['GET', 'POST'])
