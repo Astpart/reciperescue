@@ -58,7 +58,7 @@ def reset_callback():
     return render_template('reset_callback.html')
 @app.route('/update_password', methods=['GET', 'POST'])
 def update_password():
-    token = request.args.get('token')  # Get the token from the URL
+    token = request.args.get('token')  # Token is sent in the URL after the user clicks the reset link.
     
     if not token:
         flash('Invalid or missing password reset token.', 'error')
@@ -74,19 +74,31 @@ def update_password():
             return redirect(url_for('update_password', token=token))
         
         try:
-            # Now directly reset the password using the token received in the URL
-            response = supabase.auth.api.update_user_password(token, new_password)  # Correct way to update password with token
+            # Verify the token
+            response = supabase.auth.verify_otp({
+                'token': token,
+                'type': 'recovery'
+            })
             
-            if response.error:
-                flash(f"Error updating password: {response.error['message']}", 'error')
+            if response.get('error'):
+                flash(f"Error: {response['error']['message']}", 'error')
+                return redirect(url_for('login'))
+            
+            # Now, update the user's password
+            response = supabase.auth.update_user({
+                'password': new_password
+            })
+            
+            if response.get('error'):
+                flash(f"Error updating password: {response['error']['message']}", 'error')
             else:
                 flash('Your password has been updated successfully!', 'success')
                 return redirect(url_for('login'))
         except Exception as e:
             flash(f'An error occurred: {str(e)}', 'error')
     
-    # If GET request, render the password update form
     return render_template('update_password.html', token=token)
+
 '''  
 @app.route('/update_password', methods=['GET', 'POST'])
 def update_password():
@@ -164,10 +176,11 @@ def reset_password():
     if request.method == 'POST':
         email = request.form.get('email')
         try:
-            # Trigger Supabase password reset for the provided email
-            response = supabase.auth.api.reset_password_for_email(email)
-            if response.error:
-                flash(f"Error: {response.error['message']}", 'error')
+            # Trigger the reset password email through Supabase Auth
+            response = supabase.auth.reset_password_for_email(email)
+            
+            if response.get('error'):
+                flash(f"Error: {response['error']['message']}", 'error')
             else:
                 flash('Password reset instructions have been sent to your email.', 'success')
             return redirect(url_for('login'))
@@ -175,6 +188,7 @@ def reset_password():
             flash(f'An error occurred: {str(e)}', 'error')
     
     return render_template('reset_password.html')
+
 
 
 
