@@ -58,7 +58,7 @@ def reset_callback():
 @app.route('/update_password', methods=['GET', 'POST'])
 def update_password():
     token = request.args.get('token')
-    
+
     if not token:
         flash('Invalid or missing password reset token.', 'error')
         return redirect(url_for('login'))
@@ -71,26 +71,23 @@ def update_password():
         if new_password != confirm_password:
             flash('Passwords do not match. Please try again.', 'error')
             return redirect(url_for('update_password', token=token))
-        
+
         try:
-            # Verify the token and update the password
-            session = supabase.auth.verify_otp({
-                'token': token,
-                'type': 'recovery'
-            })
-            
-            # If the session is valid, update the password
-            supabase.auth.update_user(
-                {'password': new_password},
-                session.session.access_token
-            )
-            
+            # Verify the password reset token with Supabase
+            response = supabase.auth.api.update_user({
+                'password': new_password
+            }, access_token=token)
+
+            if response.get('error'):
+                flash('An error occurred: ' + response['error']['message'], 'error')
+                return redirect(url_for('update_password', token=token))
+
             flash('Your password has been updated successfully!', 'success')
             return redirect(url_for('login'))
+
         except Exception as e:
             flash(f'An error occurred: {str(e)}', 'error')
-    
-    # If GET request, render the password update form
+
     return render_template('update_password.html', token=token)
 
         
