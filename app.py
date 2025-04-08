@@ -123,19 +123,26 @@ def login():
 
     
     
-@app.route('/reset_password', methods=['GET', 'POST'])
+@app.route('/reset_password', methods=['POST'])
 def reset_password():
-    if request.method == 'POST':
-        email = request.form.get('email')
+    email = request.form.get('email')
+    if email:
         try:
-            # Use the correct Supabase method
-            supabase.auth.reset_password_for_email(email)
+            # Send reset password email via Supabase
+            response = supabase.auth.api.reset_password_for_email(email)
+
+            if response.get('error'):
+                flash(f'Error: {response["error"]["message"]}', 'error')
+                return redirect(url_for('reset_password'))
+
             flash('Password reset instructions have been sent to your email.', 'success')
             return redirect(url_for('login'))
+
         except Exception as e:
             flash(f'An error occurred: {str(e)}', 'error')
-    
+
     return render_template('reset_password.html')
+
 
 
 
