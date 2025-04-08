@@ -49,7 +49,8 @@ def register():
     
     return render_template('register.html')
     
-    
+
+
 @app.route('/reset-callback', methods=['GET'])
 def reset_callback():
     # This page will receive the hash fragment from Supabase
@@ -164,8 +165,7 @@ def reset_password():
         email = request.form.get('email')
         try:
             # Trigger Supabase password reset for the provided email
-             supabase.auth.reset_password_for_email(email)
-             flash('Password reset instructions have been sent to your email.', 'success')
+            response = supabase.auth.api.reset_password_for_email(email)
             if response.error:
                 flash(f"Error: {response.error['message']}", 'error')
             else:
@@ -175,6 +175,7 @@ def reset_password():
             flash(f'An error occurred: {str(e)}', 'error')
     
     return render_template('reset_password.html')
+
 
 
 
