@@ -54,7 +54,33 @@ def reset_callback():
     # This page will receive the hash fragment from Supabase
     # We'll use JavaScript to extract the token and show the password reset form
     return render_template('reset_callback.html')
-
+    
+@app.route('/api/update-password', methods=['POST'])
+def api_update_password():
+    try:
+        data = request.json
+        auth_header = request.headers.get('Authorization')
+        
+        if not auth_header or not auth_header.startswith('Bearer '):
+            return {"error": "Invalid authentication"}, 401
+        
+        # Extract token from Authorization header
+        access_token = auth_header.split(' ')[1]
+        
+        # Update the user's password
+        # Note: The token is used to identify the user
+        supabase.auth.update_user(
+            {
+                "password": data.get('password')
+            },
+            access_token
+        )
+        
+        return {"success": True}, 200
+    except Exception as e:
+        print(f"Error updating password: {str(e)}")
+        return {"error": str(e)}, 400
+        
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
