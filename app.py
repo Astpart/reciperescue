@@ -87,14 +87,11 @@ def reset_password():
     if request.method == 'POST':
         email = request.form.get('email')
         try:
-            # Trigger password reset with Supabase Auth (correct method)
-            response = supabase.auth.reset_password_for_email(email)
-            
-            if response.get('error') is None:
-                flash('Password reset instructions have been sent to your email.', 'success')
-                return redirect(url_for('login'))
-            else:
-                flash('Failed to send reset instructions. Please check the email provided.', 'error')
+            # Trigger password reset with updated Supabase Auth syntax
+            supabase.auth.reset_password_for_email(email)
+            # If no exception is raised, consider it successful
+            flash('Password reset instructions have been sent to your email.', 'success')
+            return redirect(url_for('login'))
         except Exception as e:
             flash(f'An error occurred: {str(e)}', 'error')
     
