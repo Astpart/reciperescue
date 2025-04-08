@@ -79,7 +79,35 @@ def login():
     
     return render_template('login.html')
 
-
+@app.route('/update_password', methods=['GET', 'POST'])
+def update_password():
+    # Get the token from the URL (from the email link)
+    token = request.args.get('token')
+    
+    if not token:
+        flash('Invalid or missing reset token', 'error')
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+        
+        if not new_password:
+            flash('Please enter a new password', 'error')
+            return render_template('update_password.html', token=token)
+        
+        try:
+            # Update the user's password using the token
+            response = supabase.auth.update_user({
+                "password": new_password
+            })
+            
+            flash('Your password has been updated successfully!', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash(f'Failed to update password: {str(e)}', 'error')
+    
+    # Display the form for entering a new password
+    return render_template('update_password.html', token=token)
     
     
 @app.route('/reset_password', methods=['GET', 'POST'])
@@ -87,9 +115,8 @@ def reset_password():
     if request.method == 'POST':
         email = request.form.get('email')
         try:
-            # Trigger password reset with updated Supabase Auth syntax
+            # Use the correct Supabase method
             supabase.auth.reset_password_for_email(email)
-            # If no exception is raised, consider it successful
             flash('Password reset instructions have been sent to your email.', 'success')
             return redirect(url_for('login'))
         except Exception as e:
