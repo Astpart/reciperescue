@@ -54,7 +54,38 @@ def reset_callback():
     # This page will receive the hash fragment from Supabase
     # We'll use JavaScript to extract the token and show the password reset form
     return render_template('reset_callback.html')
+@app.route('/update_password', methods=['GET', 'POST'])
+def update_password():
+    token = request.args.get('token')  # Get the token from the URL
     
+    if not token:
+        flash('Invalid or missing password reset token.', 'error')
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        # Check if passwords match
+        if new_password != confirm_password:
+            flash('Passwords do not match. Please try again.', 'error')
+            return redirect(url_for('update_password', token=token))
+        
+        try:
+            # Now directly reset the password using the token received in the URL
+            response = supabase.auth.api.update_user_password(token, new_password)  # Correct way to update password with token
+            
+            if response.error:
+                flash(f"Error updating password: {response.error['message']}", 'error')
+            else:
+                flash('Your password has been updated successfully!', 'success')
+                return redirect(url_for('login'))
+        except Exception as e:
+            flash(f'An error occurred: {str(e)}', 'error')
+    
+    # If GET request, render the password update form
+    return render_template('update_password.html', token=token)
+'''  
 @app.route('/update_password', methods=['GET', 'POST'])
 def update_password():
     token = request.args.get('token')
@@ -92,7 +123,7 @@ def update_password():
     
     # If GET request, render the password update form
     return render_template('update_password.html', token=token)
-
+'''
         
 @app.route('/login', methods=['GET', 'POST'])
 def login():
