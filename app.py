@@ -55,31 +55,38 @@ def reset_callback():
     # We'll use JavaScript to extract the token and show the password reset form
     return render_template('reset_callback.html')
     
-@app.route('/api/update-password', methods=['POST'])
-def api_update_password():
-    try:
-        data = request.json
-        auth_header = request.headers.get('Authorization')
+@app.route('/update_password', methods=['GET', 'POST'])
+def update_password():
+    token = request.args.get('token')
+    
+    if not token:
+        flash('Invalid or missing password reset token.', 'error')
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        new_password = request.form.get('password')
         
-        if not auth_header or not auth_header.startswith('Bearer '):
-            return {"error": "Invalid authentication"}, 401
-        
-        # Extract token from Authorization header
-        access_token = auth_header.split(' ')[1]
-        
-        # Update the user's password
-        # Note: The token is used to identify the user
-        supabase.auth.update_user(
-            {
-                "password": data.get('password')
-            },
-            access_token
-        )
-        
-        return {"success": True}, 200
-    except Exception as e:
-        print(f"Error updating password: {str(e)}")
-        return {"error": str(e)}, 400
+        try:
+            # Create client with the reset token
+            # This approach varies by Supabase version, but generally:
+            session = supabase.auth.verify_otp({
+                'token': token,
+                'type': 'recovery'
+            })
+            
+            # Use the session to update the password
+            supabase.auth.update_user(
+                {'password': new_password},
+                session.session.access_token
+            )
+            
+            flash('Your password has been updated successfully!', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash(f'An error occurred: {str(e)}', 'error')
+    
+    # Display the form to enter a new password
+    return render_template('update_password.html', token=token)
         
 @app.route('/login', methods=['GET', 'POST'])
 def login():
