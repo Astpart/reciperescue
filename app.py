@@ -49,6 +49,7 @@ def register():
     
     return render_template('register.html')
     
+    
 @app.route('/reset-callback', methods=['GET'])
 def reset_callback():
     # This page will receive the hash fragment from Supabase
