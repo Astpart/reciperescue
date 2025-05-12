@@ -1,428 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="pK5rlEYFl5RdW8zObfvoBBkCZRm78MtcV8AmAIB8YyQ" />
-    <meta name="description" content="Manage your recipes and ingredients easily with our app.">
-    <meta name="author" content="AstPart">
-    <meta name="robots" content="index,follow">
-    <link rel="icon" href="/static/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Ingredient & Recipe Manager</title>
-    <!-- Use Tailwind CSS via CDN -->
+    <title>RecipeRescue: Smart Ingredient Management and Food Waste Reduction Guide</title>
+    <meta name="description" content="Discover expert strategies for managing ingredients, reducing food waste, and creating delicious meals with our comprehensive recipe and ingredient tracking guide.">
+    <meta name="keywords" content="recipe management, ingredient tracking, food waste reduction, meal planning, kitchen organization, cooking tips, recipe rescue, ingredient inventory">
+    <meta name="author" content="RecipeRescue Team">
+    <link rel="canonical" href="https://recipeemergency.com">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        emerald: {
-                            50: "#ecfdf5",
-                            100: "#d1fae5",
-                            200: "#a7f3d0",
-                            300: "#6ee7b7",
-                            400: "#34d399",
-                            500: "#10b981",
-                            600: "#059669",
-                            700: "#047857",
-                            800: "#065f46",
-                            900: "#064e3b",
-                            950: "#022c22",
-                        },
-                        amber: {
-                            50: "#fffbeb",
-                            100: "#fef3c7",
-                            200: "#fde68a",
-                            300: "#fcd34d",
-                            400: "#fbbf24",
-                            500: "#f59e0b",
-                            600: "#d97706",
-                            700: "#b45309",
-                            800: "#92400e",
-                            900: "#78350f",
-                            950: "#451a03",
-                        },
-                    }
-                }
-            }
+    <style>
+        /* Additional custom styles for SEO content */
+        .seo-content p, .seo-content li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
         }
-    </script>
-    <!-- Add Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-emerald-600 to-teal-500 rounded-xl p-8 mb-8 text-center shadow-lg relative">
-            <!-- Logout Button -->
-            <a href="/logout" class="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
-                <i data-lucide="log-out" class="h-5 w-5 mr-2"></i>
-                <span>Logout</span>
-            </a>
-            
-            <h1 class="text-4xl font-bold text-white mb-2">RecipeRescue</h1>
-            <p class="text-white/90 text-lg">
-                Keep track of your ingredients and discover recipes that make the most of your pantry.
-            </p>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Existing App Header and Navigation -->
+    <header class="bg-gradient-to-r from-emerald-600 to-teal-500 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-4">RecipeRescue: Your Smart Kitchen Companion</h1>
+            <p class="text-xl max-w-2xl mx-auto">Revolutionize your cooking experience with intelligent ingredient tracking and recipe management</p>
         </div>
+    </header>
 
-        <!-- Main Content -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Left Column - Ingredient Management -->
-            <div class="lg:col-span-1 space-y-6">
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <h2 class="text-2xl font-semibold text-emerald-700 mb-4 flex items-center">
-                        <i data-lucide="plus-circle" class="mr-2 h-6 w-6"></i>
-                        Add Ingredients
-                    </h2>
-                    <form method="POST" action="/add" class="space-y-4">
-                        <div>
-                            <label for="name" class="text-sm font-medium">
-                                Ingredient Name
-                            </label>
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                placeholder="e.g., Tomatoes"
-                                required
-                                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                            />
-                        </div>
-                        
-                        <div>
-                            <label for="expiration_date" class="text-sm font-medium flex items-center">
-                                <i data-lucide="calendar" class="h-4 w-4 mr-1"></i>
-                                Expiration Date
-                            </label>
-                            <input
-                                id="expiration_date"
-                                name="expiration_date"
-                                type="date"
-                                required
-                                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                            />
-                        </div>
-                        
-                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
-                            Add Ingredient
-                        </button>
-                    </form>
-                </div>
+    <!-- Main Content Container -->
+    <div class="container mx-auto px-4 py-12 grid md:grid-cols-3 gap-12">
+        <!-- Main Content Column -->
+        <div class="md:col-span-2 seo-content">
+            <section class="bg-white shadow-lg rounded-lg p-8 mb-12">
+                <h2 class="text-3xl font-bold text-emerald-700 mb-6">Mastering Kitchen Management: A Comprehensive Guide</h2>
                 
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <h2 class="text-2xl font-semibold text-emerald-700 mb-4">Your Ingredients</h2>
-                    
-                    <!-- Debug info - remove in production -->
-                    <div class="mb-4 p-2 bg-gray-100 rounded text-xs overflow-auto max-h-20 hidden">
-                        <pre>{{ ingredients }}</pre>
-                    </div>
-                    
-                    <!-- Ingredients Pagination Control -->
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="text-sm text-gray-600">
-                            Showing <span id="ingredient-count">{{ ingredients|length }}</span> ingredients
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <label for="ingredients-per-page" class="text-sm text-gray-600">Show:</label>
-                            <select id="ingredients-per-page" class="text-sm border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="all">All</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-md">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expiration Date</th>
-                                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-28">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                {% if ingredients %}
-                                    {% for ingredient in ingredients %}
-                                    <tr class="{% if ingredient.expires_soon %}bg-amber-50{% endif %}" id="row-{{ ingredient.id }}">
-                                        <!-- Name Column -->
-                                        <td class="px-4 py-3">
-                                            <!-- Display Mode -->
-                                            <div id="display-name-{{ ingredient.id }}" class="flex items-center">
-                                                <span class="font-medium">{{ ingredient.name }}</span>
-                                                {% if ingredient.expires_soon %}
-                                                <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 border border-amber-200">
-                                                    Expiring Soon
-                                                </span>
-                                                {% endif %}
-                                            </div>
-                                            
-                                            <!-- Edit Mode -->
-                                            <div id="edit-name-container-{{ ingredient.id }}" class="hidden">
-                                                <input type="text" 
-                                                    id="edit-name-{{ ingredient.id }}" 
-                                                    value="{{ ingredient.name }}" 
-                                                    class="w-full px-2 py-1 border border-gray-300 rounded-md">
-                                            </div>
-                                        </td>
-                                        
-                                        <!-- Date Column -->
-                                        <td class="px-4 py-3">
-                                            <!-- Display Mode -->
-                                            <div id="display-date-{{ ingredient.id }}">
-                                                {{ ingredient.expiration_date }}
-                                            </div>
-                                            
-                                            <!-- Edit Mode -->
-                                            <div id="edit-date-container-{{ ingredient.id }}" class="hidden">
-                                                <input type="date" 
-                                                    id="edit-date-{{ ingredient.id }}" 
-                                                    value="{{ ingredient.expiration_date }}" 
-                                                    class="w-full px-2 py-1 border border-gray-300 rounded-md">
-                                            </div>
-                                        </td>
-                                        
-                                        <!-- Actions Column -->
-                                        <td class="px-4 py-3 text-right whitespace-nowrap">
-                                            <!-- Display Mode Buttons -->
-                                            <div id="view-buttons-{{ ingredient.id }}" class="flex justify-end space-x-2">
-                                                <button type="button" 
-                                                        onclick="startEditing({{ ingredient.id }})" 
-                                                        class="bg-slate-100 text-slate-600 hover:bg-slate-200 p-1.5 rounded-md">
-                                                    <i data-lucide="pencil" class="h-4 w-4"></i>
-                                                </button>
-                                                
-                                                <a href="/delete/{{ ingredient.id }}" 
-                                                   class="bg-red-50 text-red-600 hover:bg-red-100 p-1.5 rounded-md">
-                                                    <i data-lucide="trash-2" class="h-4 w-4"></i>
-                                                </a>
-                                            </div>
-                                            
-                                            <!-- Edit Mode Buttons -->
-                                            <div id="edit-buttons-{{ ingredient.id }}" class="hidden flex justify-end space-x-2">
-                                                <button type="button" 
-                                                        onclick="saveChanges({{ ingredient.id }})" 
-                                                        class="bg-emerald-100 text-emerald-600 hover:bg-emerald-200 p-1.5 rounded-md flex items-center">
-                                                    <i data-lucide="check" class="h-4 w-4 mr-1"></i>
-                                                    <span>Save</span>
-                                                </button>
-                                                
-                                                <button type="button" 
-                                                        onclick="cancelEditing({{ ingredient.id }})" 
-                                                        class="bg-slate-100 text-slate-600 hover:bg-slate-200 p-1.5 rounded-md">
-                                                    <i data-lucide="x" class="h-4 w-4"></i>
-                                                </button>
-                                            </div>
-                                            
-                                            <!-- Hidden Form for Submission -->
-                                            <form id="edit-form-{{ ingredient.id }}" 
-                                                  method="POST" 
-                                                  action="/edit/{{ ingredient.id }}" 
-                                                  class="hidden">
-                                                <input type="text" name="name" id="form-name-{{ ingredient.id }}">
-                                                <input type="date" name="expiration_date" id="form-date-{{ ingredient.id }}">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                {% else %}
-                                <tr>
-                                    <td colspan="3" class="px-6 py-8 text-center text-gray-500">
-                                        No ingredients added yet
-                                    </td>
-                                </tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                <h3 class="text-2xl font-semibold text-emerald-600 mb-4">Understanding Food Waste and Ingredient Management</h3>
+                <p>In today's fast-paced world, managing kitchen ingredients effectively has become more crucial than ever. The average household wastes approximately 30-40% of their food supply, translating to significant economic and environmental consequences. RecipeRescue emerges as a revolutionary solution designed to transform how you approach meal planning, ingredient tracking, and food preservation.</p>
+                
+                <h3 class="text-2xl font-semibold text-emerald-600 mb-4 mt-8">The Science of Smart Ingredient Tracking</h3>
+                <p>Our innovative approach combines cutting-edge technology with practical kitchen management strategies. By leveraging advanced tracking systems, RecipeRescue helps you:</p>
+                <ul class="list-disc list-inside pl-4 space-y-2">
+                    <li>Monitor ingredient expiration dates with precision</li>
+                    <li>Generate personalized recipe suggestions based on available ingredients</li>
+                    <li>Reduce food waste through intelligent inventory management</li>
+                    <li>Save money by minimizing unnecessary grocery purchases</li>
+                </ul>
 
-            <!-- Right Column - Recipe Suggestions -->
-            <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <h2 class="text-2xl font-semibold text-emerald-700 mb-6">Suggested Recipes</h2>
-                    
-                    <!-- Debug info - remove in production -->
-                    <div class="mb-4 p-2 bg-gray-100 rounded text-xs overflow-auto max-h-20 hidden">
-                        <pre>{{ recipes }}</pre>
-                    </div>
-                    
-                    <!-- Recipes Pagination Control -->
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="text-sm text-gray-600">
-                            Showing <span id="recipe-count">{{ recipes|length }}</span> recipes
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <label for="recipes-per-page" class="text-sm text-gray-600">Show:</label>
-                            <select id="recipes-per-page" class="text-sm border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="all">All</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {% if recipes %}
-                            {% for recipe in recipes %}
-                            <div class="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full flex flex-col">
-                                <div class="relative h-48 w-full bg-gray-100">
-                                    {% if recipe.image_url %}
-                                        <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" class="h-full w-full object-cover">
-                                    {% else %}
-                                        <!-- Fallback to placeholder when no image is available -->
-                                        <div class="absolute inset-0 flex items-center justify-center text-gray-400">
-                                            <i data-lucide="utensils" class="h-12 w-12"></i>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="p-4 pb-2">
-                                    <h3 class="text-xl text-emerald-700 font-semibold">{{ recipe.name }}</h3>
-                                </div>
-                                <div class="p-4 pt-0 flex-1 flex flex-col">
-                                    <div class="mb-3">
-                                        <h4 class="font-semibold text-sm text-slate-700 mb-1">Ingredients:</h4>
-                                        <p class="text-sm text-slate-600">{{ recipe.ingredients }}</p>
-                                    </div>
-                                    
-                                    <div class="mb-4 flex-1">
-                                        <h4 class="font-semibold text-sm text-slate-700 mb-1">Instructions:</h4>
-                                        <div class="text-sm text-slate-600 max-h-32 overflow-y-auto pr-1 whitespace-pre-wrap break-words">
-                                            {{ recipe.instructions }}
-                                        </div>
-                                    </div>
-                                    
-                                    {% if recipe.expiring_count > 0 %}
-                                    <div class="mt-auto">
-                                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
-                                            <i data-lucide="alert-triangle" class="h-3.5 w-3.5"></i>
-                                            <span>
-                                                {{ recipe.expiring_count }} ingredient{% if recipe.expiring_count != 1 %}s{% endif %} expiring soon
-                                            </span>
-                                        </span>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% else %}
-                        <div class="col-span-2 p-8 text-center text-gray-500">
-                            No recipes available
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript for editing and pagination functionality -->
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
-        // Editing functionality
-        function startEditing(id) {
-            // Hide display elements, show edit elements
-            document.getElementById(`display-name-${id}`).classList.add('hidden');
-            document.getElementById(`display-date-${id}`).classList.add('hidden');
-            document.getElementById(`edit-name-container-${id}`).classList.remove('hidden');
-            document.getElementById(`edit-date-container-${id}`).classList.remove('hidden');
-            
-            // Hide view buttons, show edit buttons
-            document.getElementById(`view-buttons-${id}`).classList.add('hidden');
-            document.getElementById(`edit-buttons-${id}`).classList.remove('hidden');
-        }
-        
-        function cancelEditing(id) {
-            // Show display elements, hide edit elements
-            document.getElementById(`display-name-${id}`).classList.remove('hidden');
-            document.getElementById(`display-date-${id}`).classList.remove('hidden');
-            document.getElementById(`edit-name-container-${id}`).classList.add('hidden');
-            document.getElementById(`edit-date-container-${id}`).classList.add('hidden');
-            
-            // Show view buttons, hide edit buttons
-            document.getElementById(`view-buttons-${id}`).classList.remove('hidden');
-            document.getElementById(`edit-buttons-${id}`).classList.add('hidden');
-        }
-        
-        function saveChanges(id) {
-            // Get values from edit fields
-            const nameValue = document.getElementById(`edit-name-${id}`).value;
-            const dateValue = document.getElementById(`edit-date-${id}`).value;
-            
-            // Set values in the hidden form
-            document.getElementById(`form-name-${id}`).value = nameValue;
-            document.getElementById(`form-date-${id}`).value = dateValue;
-            
-            // Submit the form
-            document.getElementById(`edit-form-${id}`).submit();
-        }
-        
-        // Pagination functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ingredients pagination
-            const ingredientsPerPage = document.getElementById('ingredients-per-page');
-            const ingredientRows = document.querySelectorAll('table tbody tr');
-            
-            if (ingredientsPerPage) {
-                ingredientsPerPage.addEventListener('change', function() {
-                    const limit = this.value === 'all' ? ingredientRows.length : parseInt(this.value);
-                    
-                    // Show/hide rows based on selected limit
-                    ingredientRows.forEach((row, index) => {
-                        if (index < limit) {
-                            row.classList.remove('hidden');
-                        } else {
-                            row.classList.add('hidden');
-                        }
-                    });
-                    
-                    // Update the count display
-                    const visibleCount = limit < ingredientRows.length ? limit : ingredientRows.length;
-                    document.getElementById('ingredient-count').textContent = visibleCount;
-                });
+                <h3 class="text-2xl font-semibold text-emerald-600 mb-4 mt-8">Comprehensive Ingredient Management Strategies</h3>
+                <p>Effective ingredient management goes beyond simple tracking. It's about creating a holistic approach to kitchen organization that maximizes efficiency and minimizes waste. Here are advanced strategies to transform your kitchen management:</p>
                 
-                // Trigger initial display with default 25 items
-                if (ingredientRows.length > 25) {
-                    ingredientsPerPage.value = '25';
-                    ingredientsPerPage.dispatchEvent(new Event('change'));
-                }
-            }
-            
-            // Recipes pagination
-            const recipesPerPage = document.getElementById('recipes-per-page');
-            const recipeCards = document.querySelectorAll('.grid.grid-cols-1.md\\:grid-cols-2.gap-6 > div.border');
-            
-            if (recipesPerPage) {
-                recipesPerPage.addEventListener('change', function() {
-                    const limit = this.value === 'all' ? recipeCards.length : parseInt(this.value);
-                    
-                    // Show/hide recipe cards based on selected limit
-                    recipeCards.forEach((card, index) => {
-                        if (index < limit) {
-                            card.classList.remove('hidden');
-                        } else {
-                            card.classList.add('hidden');
-                        }
-                    });
-                    
-                    // Update the count display
-                    const visibleCount = limit < recipeCards.length ? limit : recipeCards.length;
-                    document.getElementById('recipe-count').textContent = visibleCount;
-                });
-                
-                // Trigger initial display with default 25 items
-                if (recipeCards.length > 25) {
-                    recipesPerPage.value = '25';
-                    recipesPerPage.dispatchEvent(new Event('change'));
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+                <ol class="list-decimal list-inside pl-4 space-y-3">
+                    <li>
+                        <strong>Digital Inventory Tracking</strong>
+                        <p class="pl-6">Utilize technology to maintain real-time ingredient inventories. Our platform allows you to log ingredients, track expiration dates, and receive timely alerts about items nearing their use-by date.</p>
+                    </li>
+                    <li>
+                        <strong>Intelligent Recipe Recommendations</strong>
+                        <p class="pl-6">Our algorithm analyzes your current ingredient inventory and suggests recipes that utilize items close to expiration, ensuring nothing goes to waste.</p>
+                    </li>
+                    <li>
+                        <strong>Expiration Date Management</strong>
+                        <p class="pl-6">Learn to understand and interpret food expiration dates. Not all dates mean
